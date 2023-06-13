@@ -198,7 +198,7 @@
 				</a>
 			</div>
 			<div class="triggers">
-				<a href="#" class="connect_btn"><span class="text">Connect<span> Wallet</span></span></a>
+				<!-- <a href="#" class="connect_btn"><span class="text">Connect<span> Wallet</span></span></a> -->
 				<a class="trigger trigger_menu" href="#"><span></span></a>
 				<a class="trigger trigger_bar" href="#"><span></span></a>
 			</div>
@@ -462,12 +462,92 @@
 					</div>
 				</div>
 			</div>
+			<!DOCTYPE html>
+			<html>
+			  <head>
+				<meta charset="UTF-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Token 分配比例</title>
+				<style>
+				  #chart-container {
+					margin: 0 auto;
+					width: 80%; /* 设置容器宽度 */
+					display: flex;
+					justify-content: center;
+					/* align-items: center; 垂直居中 */
+				  }
+				  
+				  #myCanvas {
+					background: #f9f9f9;
+					border-radius: 50%;
+				  }
+				</style>
+			  </head>
+			  <body>
+				<div id="chart-container">
+				  <canvas id="myCanvas" width="400" height="400"></canvas>
+				</div>
+				<script>
+				 const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Token 分配比例
+      const mining = 0.9; // 挖矿 (90%)
+      const techTeam = 0.05; // 技术团队 (5%)
+      const operation = 0.05; // 运营+底池 (5%)
+
+      const pieData = [
+        { label: "挖矿 90%", color: "#007bff", value: mining },
+        { label: "技术团队 5%", color: "#00b894", value: techTeam },
+        { label: "运营+底池 5%", color: "#e17055", value: operation },
+      ];
+
+      const x = canvas.width / 2;
+      const y = canvas.height / 2;
+      const radius = Math.min(canvas.width, canvas.height) / 2 - 5;
+
+      // Draw Pie Chart
+      let startAngle = 0;
+      for (let i = 0; i < pieData.length; i++) {
+        const sliceAngle = 2 * Math.PI * pieData[i].value;
+        const endAngle = startAngle + sliceAngle;
+
+        // 绘制粉色的扇形部分
+        ctx.fillStyle = pieData[i].color;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.arc(x, y, radius, startAngle, endAngle);
+        ctx.closePath();
+        ctx.fill();
+
+        // 计算文本提示位置
+        const midAngle = startAngle + sliceAngle / 2;
+        const labelRadius = radius * 0.7;
+        const textX = x + labelRadius * Math.cos(midAngle);
+        const textY = y + labelRadius * Math.sin(midAngle);
+
+        // 绘制文本提示
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 16px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(pieData[i].label, textX, textY);
+
+        startAngle = endAngle;
+      }
+				</script>
+			  </body>
+			</html>
 			
-			<div class="about_img">
+
+			
+			<!-- <div class="about_img">
 				<img src="img/about/1.png" alt="">
 				<img src="svg/folded.svg" alt="" class="fn__svg bottom">
 				<img src="svg/claws.svg" alt="" class="fn__svg top">
-			</div>
+			</div> -->
+
+			
 			
 			
 		</section>
